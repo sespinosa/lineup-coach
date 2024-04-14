@@ -67,7 +67,7 @@ const Home = ({ env = "", videoExists } : HomePageProps) => {
         </div>
         <div
           className="flex shadow-2xl rounded-lg p-2 bg-zinc-800 transition-all"
-          style={{ visibility: videoStatus ? "visible" : "hidden"}}
+          // style={{ visibility: videoStatus ? "visible" : "hidden"}}
         >
           <div className="max-w-[50vw] w-[50vw] border-r-4 border-solid border-zinc-900">
             <div className='pb-3'>
