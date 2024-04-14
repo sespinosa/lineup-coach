@@ -6,6 +6,7 @@ import useSampleRecorder from '~/hooks/useSampleRecorder';
 import type {
   Sample
 } from "~/types";
+import { Button } from '../ui/button';
 
 interface MediaConstraints extends MediaStreamConstraints {
   cursor?: 'always' | 'motion' | 'never';
@@ -21,7 +22,7 @@ type VideoBoxProps = {
 const initialParams : MediaConstraints = { video: true, audio: false, cursor: 'never' };
 
 const VideoBox = ({ env, getSamples, setStatus, dev } : VideoBoxProps) => {
-  const [ streamParams ] = useState<MediaConstraints | undefined>(!dev ? initialParams : undefined);
+  const [ streamParams, setStreamParams ] = useState<MediaConstraints | undefined>();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const { mediaStream, error } = useMediaStream(streamParams, true);
   const { samples } = useSampleRecorder({ videoRef, freq: 500 }, !!getSamples);
@@ -51,12 +52,28 @@ const VideoBox = ({ env, getSamples, setStatus, dev } : VideoBoxProps) => {
   }, [samples, getSamples]);
 
 
+  const _selectVideo = () => {
+    setStreamParams(initialParams);
+  }
+
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
   return (
     <div className="text-center">
+      {
+        !streamParams
+        &&
+        <Button
+          onClick={_selectVideo}
+          variant="secondary"
+          className='select-none'
+        >
+          Select Input
+        </Button>
+      }
       {
         !dev
         &&

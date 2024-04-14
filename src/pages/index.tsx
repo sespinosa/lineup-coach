@@ -73,6 +73,14 @@ const Home = ({ env = "", videoExists } : HomePageProps) => {
             <div className='pb-3'>
               <Button
                 onClick={toggleRecording}
+                variant={'ghost'}
+                className='select-none'
+                size='lg'
+              >
+                Select Input
+              </Button>
+              <Button
+                onClick={toggleRecording}
                 variant={record ? 'destructive' : 'default'}
                 className='select-none'
                 size='lg'
