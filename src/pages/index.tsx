@@ -23,7 +23,7 @@ export const getServerSideProps = () => {
   return {
     props: {
       env: process.env.NODE_ENV,
-      videoExists: !!fs.existsSync("./public/big_buck_bunny_720p_h264.mov")
+      videoExists: process.env.NODE_ENV === "production" || !!fs.existsSync("./public/big_buck_bunny_720p_h264.mov")
     }
   };
 };
@@ -33,8 +33,8 @@ type HomePageProps = {
   videoExists: boolean;
 };
 
-const Home = ({ env, videoExists } : HomePageProps) => {
-  const [ devMode ] = useState<boolean>(true);
+const Home = ({ env = "", videoExists } : HomePageProps) => {
+  const [ devMode ] = useState<boolean>(false);
   const [ samples, setSamples ] = useState<Sample[]>([]);
   const [ record, setRecord ] = useState<boolean>(false);
   const [ videoStatus, setVideoStatus ] = useState<boolean>(false);
@@ -122,6 +122,7 @@ const Home = ({ env, videoExists } : HomePageProps) => {
               </Link>
             </div>
             <VideoBox
+              env={env}
               getSamples={record ? setSamples : undefined}
               setStatus={setVideoStatus}
               dev={devMode}

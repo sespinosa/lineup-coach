@@ -12,6 +12,7 @@ interface MediaConstraints extends MediaStreamConstraints {
 }
 
 type VideoBoxProps = {
+  env?: string;
   getSamples?: (sample: Sample[]) => void;
   setStatus?: (status: boolean) => void;
   dev?: boolean;
@@ -19,7 +20,7 @@ type VideoBoxProps = {
 
 const initialParams : MediaConstraints = { video: true, audio: false, cursor: 'never' };
 
-const VideoBox = ({ getSamples, setStatus, dev } : VideoBoxProps) => {
+const VideoBox = ({ env, getSamples, setStatus, dev } : VideoBoxProps) => {
   const [ streamParams ] = useState<MediaConstraints | undefined>(!dev ? initialParams : undefined);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const { mediaStream, error } = useMediaStream(streamParams, true);
@@ -77,7 +78,7 @@ const VideoBox = ({ getSamples, setStatus, dev } : VideoBoxProps) => {
         <video
           className='rounded-bl-lg'
           ref={videoRef}
-          src="/big_buck_bunny_720p_h264.mov"
+          src={env === "production" ? "https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_h264.mov" : "/big_buck_bunny_720p_h264.mov"}
           autoPlay
           loop
           muted
