@@ -17,6 +17,23 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  async headers() {
+    return [
+      {
+        source: '/www.w3schools.com/:path*',
+        headers: [
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default config;
