@@ -69,25 +69,19 @@ const VideoBox = ({ env, getSamples, setStatus, dev } : VideoBoxProps) => {
         <Button
           onClick={_selectVideo}
           variant="secondary"
-          className='select-none'
+          className='select-none my-2'
         >
           Select Input
         </Button>
       }
       {
-        !dev
+        mediaStream
         &&
-        (
-          !mediaStream
-          ?
-          <p>Loading...</p>
-          :
-          <video
-            className='rounded-bl-lg'
-            ref={videoRef}
-            autoPlay
-          />
-        )
+        <video
+          className='rounded-bl-lg'
+          ref={videoRef}
+          autoPlay
+        />
       }
       {
         dev
